@@ -13,19 +13,26 @@ mirrorlist() {
 }
 
 aur() {
-    if ! pacman -Qi "${AUR}" &>/dev/null; then
-        git clone ${git_url[$id]}
-        cd "${aur_name[$id]}"
-        makepkg -si --noconfirm
-        cd ..
-        rm -rf ${aur_name[$id]}
+    if [[ $aur == "yay" ]]; then
+        aur_folder="yay-bin"
+        git_aur="https://aur.archlinux.org/yay-bin.git"
+    elif [[ $aur == "paru" ]]; then
+        aur_folder="paru-bin"
+        git_aur="https://aur.archlinux.org/paru-bin.git"
     fi
 
-    if [[ $choice == "yay" ]]; then
+    if ! pacman -Qi "$aur" &>/dev/null; then
+        git clone "$git_aur"
+        cd $aur_folder || exit
+        makepkg -si --noconfirm
+        cd .. && rm -rf $aur_folder
+    fi
+
+    if [[ $aur == "yay" ]]; then
         yay -Y --gendb
         yay -Y --devel --save
         sed -i 's/\"sudoloop\": false,/\"sudoloop\": true,/' $HOME/.config/yay/config.json
-    elif [[ $choice == "paru" ]]; then
+    elif [[ $aur == "paru" ]]; then
         paru --gendb
         sudo sed -i 's/#BottomUp/BottomUp/' /etc/paru.conf
         sudo sed -i 's/#SudoLoop/SudoLoop/' /etc/paru.conf
