@@ -7,11 +7,10 @@ else
     sudo -v
 fi
 
-curl -s --connect-timeout 8 https://www.google.com &
->/dev/null || {
-    echo "No Internet connection"
+if ! curl -s --connect-timeout 8 https://www.google.com > /dev/null 2>&1; then
+    echo "${RED}You don't have an Internet connection!${RESET}"
     exit 1
-}
+fi
 
 export RESET=$(tput sgr0)
 export RED=$(tput setaf 1)
@@ -63,7 +62,7 @@ main() {
     cuda="n"
 
     echo "
-█████╗ ██████╗  ██████╗██╗  ██╗██╗████████╗███████╗ ██████╗████████╗
+ █████╗ ██████╗  ██████╗██╗  ██╗██╗████████╗███████╗ ██████╗████████╗
 ██╔══██╗██╔══██╗██╔════╝██║  ██║██║╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝ ${GREEN}Architect v${ARCHITECT_VERSION}${RESET}
 ███████║██████╔╝██║     ███████║██║   ██║   █████╗  ██║        ██║            by https://github.com/Cardiacman13
 ██╔══██║██╔══██╗██║     ██╔══██║██║   ██║   ██╔══╝  ██║        ██║               https://github.com/wmemcpy
