@@ -27,7 +27,7 @@ shell() {
     done
 
     if [[ $shell == 'fish' ]]; then
-        sudo pacman -S --noconfirm --needed fish
+        $aur -S --noconfirm --needed fish
 
         local current_shell=$(getent passwd $USER | cut -d: -f7)
 

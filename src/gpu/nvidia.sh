@@ -10,12 +10,12 @@ nvidia() {
         cd ..
         rm -rf nvidia-all
     else
-        sudo pacman -S --noconfirm --needed nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader egl-wayland opencl-nvidia lib32-opencl-nvidia libvdpau-va-gl libvdpau
+        $aur -S --noconfirm --needed nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader egl-wayland opencl-nvidia lib32-opencl-nvidia libvdpau-va-gl libvdpau
     fi
     if [[ $laptop_nvidia_intel == "y" ]]; then
-        sudo pacman -S --noconfirm --needed intel-media-driver intel-gmmlib onevpl-intel-gpu nvidia-prime
+        $aur -S --noconfirm --needed intel-media-driver intel-gmmlib onevpl-intel-gpu nvidia-prime
     fi
     if [[ $cuda == "y" ]]; then
-        sudo pacman -S --noconfirm --needed cuda
+        $aur -S --noconfirm --needed cuda
     fi
 }

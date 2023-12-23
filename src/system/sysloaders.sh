@@ -13,5 +13,5 @@ Description = Updating grub configuration ...
 When = PostTransaction
 Exec = /usr/bin/grub-mkconfig -o /boot/grub/grub.cfg
 ' | sudo tee -a /etc/pacman.d/hooks/grub.hook
-    sudo pacman -S --noconfirm --needed update-grub
+    $aur -S --noconfirm --needed update-grub
 }

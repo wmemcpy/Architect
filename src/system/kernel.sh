@@ -3,7 +3,7 @@ kernel_headers() {
 
     for kernel in /boot/vmlinuz-*; do
         [ -e "${kernel}" ] || continue
-        sudo pacman -S --noconfirm --needed "$(basename "${kernel}" | sed -e 's/vmlinuz-//')-headers"
+        $aur -S --noconfirm --needed "$(basename "${kernel}" | sed -e 's/vmlinuz-//')-headers"
     done
 }
 
