@@ -71,19 +71,31 @@ main() {
                                                                      
 "
 
+    aur="yay"
     printf "Choose an AUR manager (yay/paru) [yay]: "
     read input
-    case "$input" in
-    paru) aur=$input ;;
-    esac
+    if [ "$input" = "paru" ]; then
+        aur="paru"
+    fi
 
+    de="kde"
     printf "Choose a desktop environment (kde/gnome/xfce4) [kde]: "
     read de
-    de=${de:-kde}
+    case "$de" in
+        gnome)
+            de="gnome"
+            ;;
+        xfce4)
+            de="xfce4"
+            ;;
+    esac
 
+    shell="fish"
     printf "Choose a shell (fish/bash) [fish]: "
     read shell
-    shell=${shell:-fish}
+    if [ "$shell" = "bash" ]; then
+        shell="bash"
+    fi
 
     printf "Choose a GPU type (nvidia/amd/intel/vm): "
     read gpu
@@ -132,24 +144,33 @@ main() {
     sysloaders
 
     # gpu
-    if [ "$gpu" = "nvidia" ]; then
-        nvidia
-    elif [ "$gpu" = "amd" ]; then
-        amd
-    elif [ "$gpu" = "intel" ]; then
-        intel
-    elif [ "$gpu" = "vm" ]; then
-        vm
-    fi
+    case "$gpu" in
+        "nvidia")
+            nvidia
+            ;;
+        "amd")
+            amd
+            ;;
+        "intel")
+            intel
+            ;;
+        "vm")
+            vm
+            ;;
+    esac
 
     # de
-    if [ "$de" = "kde" ]; then
-        kde
-    elif [ "$de" = "gnome" ]; then
-        gnome
-    elif [ "$de" = "xfce4" ]; then
-        xfce4
-    fi
+    case "$de" in
+        "kde")
+            kde
+            ;;
+        "gnome")
+            gnome
+            ;;
+        "xfce4")
+            xfce4
+            ;;
+    esac
 }
 
 main
